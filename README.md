@@ -1,5 +1,7 @@
-# PremiumCore
-
+# PremiumCore 	
+<a href="https://github.com/LeonardoCod3r/PremiumCore/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/LeonardoCod3r/PremiumCore"></a>
+<a href="https://github.com/LeonardoCod3r/PremiumCore/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/LeonardoCod3r/PremiumCore"></a>
+<a href="https://github.com/LeonardoCod3r/PremiumCore/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/LeonardoCod3r/PremiumCore"></a>
 Core para facilitar criação de plugins para servidores de Minecraft.
 
 ## Recursos
