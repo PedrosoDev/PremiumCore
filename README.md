@@ -65,7 +65,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.LeonardoCod3r:PremiumCore:Tag'
+	implementation 'com.github.LeonardoCod3r:PremiumCore:1.0.0'
 }
 ```
 
