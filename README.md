@@ -4,7 +4,9 @@ Core para facilitar criação de plugins para servidores de Minecraft.
 
 ## Recursos
 
-- [Hibernate 5.2.17-final](https://github.com/hibernate/hibernate-orm)
+- [Hibernate 5.2.17-final](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-core)
+- [Hibernate-HikariCP](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-hikaricp)
+- [Hibernate-Ehcache](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-ehcache)
 - [JPA 2.2](https://github.com/hibernate/hibernate-jpa-api)
 - [Google Guice](https://github.com/google/guice)
 - [Google Guava](https://github.com/google/guava)
