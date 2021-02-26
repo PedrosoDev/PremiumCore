@@ -33,7 +33,7 @@ Para utilizar, primeiro você precisa indexar a core em seu projeto.
 <repositories>
 	<repository>
 		<id>jitpack.io</id>
-		 <url>https://jitpack.io</url>
+		<url>https://jitpack.io</url>
 	</repository>
 </repositories>
 ```
@@ -45,6 +45,7 @@ Para utilizar, primeiro você precisa indexar a core em seu projeto.
 	<groupId>com.github.LeonardoCod3r</groupId>
 	<artifactId>PremiumCore</artifactId>
 	<version>1.0.0</version>
+	<scope>provided</scope>
 </dependency>
 ```
 
