@@ -94,5 +94,4 @@ Pull requests são bem-vindas. Para mudanças importantes, abra um problema prim
 
 ## Licença
 
-Esse projeto é licenciado pela importante
-[MIT](https://choosealicense.com/licenses/mit/).
+Licenciado por [MIT](https://choosealicense.com/licenses/mit/).
