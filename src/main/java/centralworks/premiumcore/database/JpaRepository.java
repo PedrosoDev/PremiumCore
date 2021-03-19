@@ -1,9 +1,11 @@
 package centralworks.premiumcore.database;
 
 import com.google.inject.Inject;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import javax.persistence.EntityManager;
@@ -18,16 +20,20 @@ import java.util.stream.Collectors;
 
 public class JpaRepository<O, T extends Serializable> implements Repository<O, T> {
 
-    @Setter
+    @Getter
+    private final Class<O> target;
+    @Setter(AccessLevel.PRIVATE)
     @Getter
     @Inject
     private Session session;
-    @Setter
+    @Setter(AccessLevel.PRIVATE)
     @Getter
     @Inject
     private EntityManager em;
+    @Inject
+    @Setter(AccessLevel.PRIVATE)
     @Getter
-    private final Class<O> target;
+    private SessionFactory sessionFactory;
 
     public JpaRepository(Class<O> target) {
         this.target = target;
@@ -35,46 +41,39 @@ public class JpaRepository<O, T extends Serializable> implements Repository<O, T
 
     @Override
     public void commit(O obj) {
-        try {
-            update(obj);
-        } catch (Exception ignored) {
-            final Transaction transaction = session.beginTransaction();
-            session.save(obj);
-            transaction.commit();
-        }
+        final Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        session.save(obj);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public Optional<O> read(T id) {
-        final Transaction transaction = session.beginTransaction();
+        final Session s = sessionFactory.openSession();
         try {
-            final O obj = session.load(target, id);
-            transaction.commit();
+            final O obj = s.load(target, id);
             return Optional.of(obj);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        transaction.commit();
+        s.close();
         return Optional.empty();
     }
 
     @Override
     public void update(O obj) {
-        final Transaction transaction = session.beginTransaction();
-        try {
-            session.update(obj);
-        } catch (Exception ignored) {
-        }
-        transaction.commit();
+        final Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        session.update(obj);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public void delete(O obj) {
         final Transaction transaction = session.beginTransaction();
-        try {
-            session.remove(obj);
-        } catch (Exception ignored) {
-        }
+        session.remove(obj);
         transaction.commit();
     }
 

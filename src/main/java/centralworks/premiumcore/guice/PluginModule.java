@@ -9,8 +9,14 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
+import org.hibernate.service.ServiceRegistry;
 
+import javax.persistence.EntityManager;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -43,13 +49,36 @@ public class PluginModule extends AbstractModule {
         settings.put(Environment.CONNECTION_PROVIDER, data.getString("Database.connectionProvider"));
         settings.put(Environment.USE_SECOND_LEVEL_CACHE, data.getString("Database.secondLevelCache"));
         settings.put(Environment.CACHE_REGION_FACTORY, data.getString("Database.cacheFactoryClass"));
+        settings.put(Environment.CACHE_PROVIDER_CONFIG, data.getString("Database.cacheProviderClass"));
         settings.put(Environment.USE_QUERY_CACHE, data.getString("Database.cacheQueryCache"));
         settings.put(Environment.USE_STRUCTURED_CACHE, data.getString("Database.cacheStructureEntries"));
+        settings.put("hibernate.javax.cache.provider", data.getString("Database.cacheProviderClass"));
         settings.put("net.sf.ehcache.configurationResourceName", "/META-INF/ehcache.xml");
         settings.put("hibernate.hikari.minimumIdle", data.getString("Database.minimumIdle"));
         settings.put("hibernate.hikari.maximumPoolSize", data.getString("Database.maximumPoolSize"));
         settings.put("hibernate.hikari.idleTimeout", data.getString("Database.idleTimeout"));
         return settings;
+    }
+
+    @Provides
+    @Singleton
+    public SessionFactory providesSessionFactory(Properties properties) {
+        final Configuration configuration = new Configuration();
+        configuration.setProperties(properties);
+        premiumCore.getEntitiesClass().forEach(configuration::addAnnotatedClass);
+        final ServiceRegistry serviceRegistry =
+                new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        return configuration.buildSessionFactory(serviceRegistry);
+    }
+
+    @Provides
+    public Session providesSession(SessionFactory sessionFactory) {
+        return sessionFactory.openSession();
+    }
+
+    @Provides
+    public EntityManager providesEntityManager(SessionFactory sessionFactory) {
+        return sessionFactory.createEntityManager();
     }
 
 }

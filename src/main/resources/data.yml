@@ -14,7 +14,8 @@ Database:
   idleTimeout: "30000"
   secondLevelCache: "true"
   cacheStructureEntries: "true"
-  cacheFactoryClass: "org.hibernate.cache.ehcache.internal.SingletonEhcacheRegionFactory"
+  cacheFactoryClass: "org.hibernate.cache.ehcache.internal.EhcacheRegionFactory"
+  cacheProviderClass: "net.sf.ehcache.hibernate.EhCacheProvider"
   cacheQueryCache: "true"
-  #for other changes, access the ServiceModule class
-  #https://www.github.com/LeonardoCod3r/PremiumSpawners/blob/hib-impl/src/main/java/centralworks/database/specifications/ServiceModule.java
+  #for other changes, access the PluginModule class
+  #https://www.github.com/LeonardoCod3r/PremiumCore/blob/hib-impl/src/main/java/centralworks/guice/PluginModule.java

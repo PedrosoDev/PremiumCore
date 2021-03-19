@@ -7,9 +7,14 @@
                   timeToIdleSeconds="30"
                   timeToLiveSeconds="120"
                   overflowToDisk="false"/>
-    <cache  name="example.Product"
+    <cache  name="centralworks.premiumeconomy.models.BankAccount"
             maxElementsInMemory="4"
             timeToIdleSeconds="300"
             timeToLiveSeconds="600"
             />
+    <cache  name="centralworks.premiumcore.example.Friend"
+            maxElementsInMemory="4"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+    />
 </ehcache>
