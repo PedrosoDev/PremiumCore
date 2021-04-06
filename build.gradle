@@ -1,0 +1,63 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+compileJava.options.encoding = 'UTF-8'
+
+group 'com.leonardo.stormcore'
+version '1.0.0'
+
+repositories {
+    mavenLocal()
+    google()
+    jcenter()
+    maven {
+        name = 'minecraft-repo'
+        url = 'https://libraries.minecraft.net/'
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.8.6'
+    compile 'com.google.guava:guava:30.1-jre'
+    compile 'com.google.inject:guice:4.2.0'
+    compile 'mysql:mysql-connector-java:8.0.17'
+    compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
+    compile 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
+    compile 'org.hibernate:hibernate-hikaricp:5.4.30.Final'
+    compile 'org.hibernate:hibernate-ehcache:5.4.30.Final'
+    compile 'org.hibernate:hibernate-core:5.4.30.Final'
+    compileOnly 'com.mojang:authlib:1.5.21'
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'org.projectlombok:lombok:1.18.18'
+    annotationProcessor 'org.projectlombok:lombok:1.18.18'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+group = 'com.leonardo.premiumcore'
+version = '1.0.1'
+description = 'PremiumCore'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+shadowJar {
+    archiveBaseName.set('PremiumCore')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+    exclude '*.md'
+    relocate("javax.persistence", "libs.javax.persistence")
+    relocate("com.google", "libs.com.google")
+}
+
+test {
+    useJUnitPlatform()
+}

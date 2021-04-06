@@ -6,7 +6,7 @@ Core para facilitar criação de plugins para servidores de Minecraft.
 
 ## Recursos
 
-- [Hibernate 5.4.28-final](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-core)
+- [Hibernate 5.4.30-final](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-core)
 - [Hibernate-HikariCP](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-hikaricp)
 - [Hibernate-Ehcache](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-ehcache)
 - [JPA 2.2](https://github.com/hibernate/hibernate-jpa-api)
@@ -14,7 +14,6 @@ Core para facilitar criação de plugins para servidores de Minecraft.
 - [Google Guava](https://github.com/google/guava)
 - ReflectionUtils by DarkBlade12
 - BookViewer by DarkBlade12
-- ActionBarMessage
 - InventoryMaker
 - ItemBuilder (Item.class)
 - Settings (Classe para acesso à arquivos .yml)
@@ -72,17 +71,19 @@ dependencies {
 
 ## Utilização
 ```java
-@Getter
-private Injector injector;
+public class Plugin extends JavaPlugin {
+    @Getter
+    private Injector injector;
 
-@Inject
-private PremiumCore core;
+    @Inject
+    private PremiumCore core;
 
-public void onEnable() {
-    this.injector = Guice.createInjector(
-    PluginModule.of(PremiumCore.getInstance(), PremiumCore.getInstance().getLogger())
-    );
-    injector.injectMembers(this);
+    public void onEnable() {
+        this.injector = Guice.createInjector(
+                PluginModule.of(PremiumCore.getInstance(), PremiumCore.getInstance().getLogger())
+        );
+        injector.injectMembers(this);
+    }
 }
 ```
 

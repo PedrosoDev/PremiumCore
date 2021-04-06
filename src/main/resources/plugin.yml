@@ -1,6 +1,5 @@
 name: PremiumCore
-main: centralworks.premiumcore.PremiumCore
+main: com.leonardo.premiumcore.PremiumCore
 author: <Leonardo/>
 version: 1.0
-depend: [ NBTAPI, ProtocolLib ]
-softdepend: [ dynmap ]
+softdepend: [ dynmap, NBTAPI, ProtocolLib ]
