@@ -80,7 +80,7 @@ public class Plugin extends JavaPlugin {
 
     public void onEnable() {
         this.injector = Guice.createInjector(
-                PluginModule.of(PremiumCore.getInstance(), PremiumCore.getInstance().getLogger())
+                PluginModule.of((PremiumCore) Bukkit.getPluginManager().getPlugin("PremiumCore"))
         );
         injector.injectMembers(this);
     }
