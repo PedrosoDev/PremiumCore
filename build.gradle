@@ -12,25 +12,13 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 compileJava.options.encoding = 'UTF-8'
 
-group 'com.leonardo.stormcore'
-version '1.0.0'
-
 repositories {
     mavenLocal()
     google()
     jcenter()
-    maven {
-        name 'minecraft-repo'
-        url 'https://libraries.minecraft.net/'
-    }
-    maven {
-        name 'spigot-repo'
-        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-    }
-    maven {
-        name 'bungee-repo'
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
-    }
+    maven { url 'https://libraries.minecraft.net/' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 dependencies {
@@ -53,7 +41,7 @@ dependencies {
 }
 
 group = 'com.leonardo.premiumcore'
-version = '1.0.1'
+version = '1.2.1'
 description = 'PremiumCore'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -62,9 +50,11 @@ shadowJar {
     archiveClassifier.set('')
     archiveVersion.set('')
     exclude '*.md'
-    relocate("javax.persistence", "libs.javax.persistence")
-    relocate("com.google", "libs.com.google")
+    relocate("javax.persistence", "javax.relocated.persistence")
+    relocate("com.google", "com.relocated.google")
 }
+
+assemble.dependsOn shadowJar
 
 test {
     useJUnitPlatform()

@@ -52,17 +52,17 @@ public class PremiumCore extends JavaPlugin {
     @SneakyThrows
     @Override
     public void onEnable() {
+        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+            final Class<? extends Plugin> pluginClass = plugin.getClass();
+            if (pluginClass.isAnnotationPresent(Jpa.class))
+                this.entitiesClass.addAll(Arrays.asList(pluginClass.getAnnotation(Jpa.class).entities()));
+        }
         this.injector = Guice.createInjector(PluginModule.of(this));
         this.injector.injectMembers(this);
         final GsonBuilder gsonBuilder = new GsonBuilder();
         this.prettierGson = gsonBuilder.setPrettyPrinting().create();
         this.gson = gsonBuilder.create();
         this.settings.createConfigurationFile(this, "/", "/", "database");
-        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-            final Class<? extends Plugin> pluginClass = plugin.getClass();
-            if (pluginClass.isAnnotationPresent(Jpa.class))
-                this.entitiesClass.addAll(Arrays.asList(pluginClass.getAnnotation(Jpa.class).entities()));
-        }
         registerListener(controller);
     }
 
