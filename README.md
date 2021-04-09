@@ -43,7 +43,7 @@ Para utilizar, primeiro você precisa indexar a core em seu projeto.
 <dependency>
 	<groupId>com.github.LeonardoCod3r</groupId>
 	<artifactId>PremiumCore</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<scope>provided</scope>
 </dependency>
 ```
@@ -65,23 +65,25 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.LeonardoCod3r:PremiumCore:1.2.0'
+	implementation 'com.github.LeonardoCod3r:PremiumCore:1.2.1'
 }
 ```
 
 ## Utilização
 ```java
 public class Plugin extends JavaPlugin {
+
     @Getter
     private Injector injector;
 
     @Inject
     private PremiumCore core;
+    
+    @Inject
+    private SessionFactory sessionFactory;
 
     public void onEnable() {
-        this.injector = Guice.createInjector(
-                PluginModule.of((PremiumCore) Bukkit.getPluginManager().getPlugin("PremiumCore"))
-        );
+        this.injector = ((PremiumCore) Bukkit.getPluginManager().getPlugin("PremiumCore")).getInjector();
         injector.injectMembers(this);
     }
 }
