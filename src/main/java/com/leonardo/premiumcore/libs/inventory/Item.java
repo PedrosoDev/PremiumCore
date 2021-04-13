@@ -195,7 +195,7 @@ public class Item {
             final Field profileField = skullMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             final String json = ((GameProfile) profileField.get(skullMeta)).getProperties().get("textures").stream().filter(property -> property.getName().equals("textures")).findFirst().get().getValue();
-            final JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+            final JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
             url = jsonObject.getAsJsonObject("textures").getAsJsonObject("SKIN").get("url").getAsString();
         } catch (Exception ignored) {
         }

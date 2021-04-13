@@ -1,11 +1,12 @@
 package com.leonardo.premiumcore.libs;
 
-import com.leonardo.premiumcore.PremiumCore;
-import com.google.common.collect.Maps;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.leonardo.premiumcore.PremiumCore;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 
@@ -14,13 +15,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.HashMap;
 
 @Singleton
 public class Settings {
 
     @Getter
-    private final HashMap<String, JsonObject> jsons = Maps.newHashMap();
+    private final Table<Plugin, String, JsonObject> jsons = HashBasedTable.create();
     @Inject
     private PremiumCore core;
 
@@ -34,21 +34,21 @@ public class Settings {
         try {
             if (!file.exists())
                 Files.copy(plugin.getClass().getResourceAsStream(resourcePath + name + ".json"), file.toPath());
-            final JsonObject jsonObject = new JsonParser().parse(new FileReader(file.getAbsolutePath())).getAsJsonObject();
-            jsons.put(name, jsonObject);
+            final JsonObject jsonObject = JsonParser.parseReader(new FileReader(file.getAbsolutePath())).getAsJsonObject();
+            jsons.put(plugin, name, jsonObject);
         } catch (IOException ignored) {
         }
     }
 
-    public JsonObject getObject(String name) {
-        return jsons.get(name);
+    public JsonObject getObject(Plugin plugin, String name) {
+        return jsons.get(plugin, name);
     }
 
     public void updateConfigurationFile(Plugin plugin, String path, String name) {
         if (plugin == null) plugin = core;
         final File file = new File(plugin.getDataFolder() + path + name + ".json");
         try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(getObject(name).getAsString());
+            fileWriter.write(getObject(plugin, name).getAsString());
             fileWriter.flush();
         } catch (IOException ignored) {
         }

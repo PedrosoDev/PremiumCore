@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class JpaRepository<O, T extends Serializable> implements Repository<O, T> {
+public abstract class JpaRepository<O, T extends Serializable> implements Repository<O, T> {
 
     @Getter
     private final Class<O> target;
@@ -37,15 +37,21 @@ public class JpaRepository<O, T extends Serializable> implements Repository<O, T
 
     @Override
     public Optional<O> read(T id) {
+        Optional<O> opt;
         final Session s = sessionFactory.openSession();
+        s.getTransaction().begin();
         try {
             final O obj = s.load(target, id);
-            return Optional.of(obj);
+            s.getTransaction().commit();;
+            opt = Optional.of(obj);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Ocorreu um erro ao requisitar no banco de dados a entidade " + getTarget().getSimpleName() + " de id " + id);
+            s.getTransaction().rollback();
+            opt = Optional.empty();
+        } finally {
+            s.close();
         }
-        s.close();
-        return Optional.empty();
+        return opt;
     }
 
     @Override

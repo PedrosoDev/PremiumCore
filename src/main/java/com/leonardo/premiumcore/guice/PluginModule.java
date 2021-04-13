@@ -2,6 +2,7 @@ package com.leonardo.premiumcore.guice;
 
 import com.google.gson.JsonObject;
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -45,10 +46,16 @@ public class PluginModule extends AbstractModule {
         return ReflectionUtils.getMethod("CraftPlayer", ReflectionUtils.PackageType.CRAFTBUKKIT_ENTITY, "getHandle");
     }
 
+    public void createConfigurations(Settings config) {
+        config.createConfigurationFile(core, "/", "/", "database");
+    }
+
     @Provides
     @Singleton
-    public Properties provideProperties() {
-        final JsonObject data = core.getSettings().getObject("database");
+    @Inject
+    public Properties provideProperties(Settings config) {
+        createConfigurations(config);
+        final JsonObject data = config.getObject(core, "database");
         final Function<String, String> fun = (param) -> data.get(param).getAsString();
         final Properties settings = new Properties();
         settings.put(Environment.DRIVER, fun.apply("driver"));
@@ -69,9 +76,6 @@ public class PluginModule extends AbstractModule {
         settings.put("hibernate.hikari.maximumPoolSize", fun.apply("maximumPoolSize"));
         settings.put("hibernate.hikari.idleTimeout", fun.apply("idleTimeout"));
         settings.put("hibernate.hikari.connectionTimeout", fun.apply("connectionTimeout"));
-        settings.put("hibernate.hikari.cachePrepStmts", fun.apply("cachePrepStmts"));
-        settings.put("hibernate.hikari.prepStmtCacheSize", fun.apply("prepStmtCacheSize"));
-        settings.put("hibernate.hikari.prepStmtCacheSqlLimit", fun.apply("prepStmtCacheSqlLimit"));
         settings.put("hibernate.hikari.autoCommit", fun.apply("autoCommit"));
         settings.put("net.sf.ehcache.configurationResourceName", "/META-INF/ehcache.xml");
         return settings;

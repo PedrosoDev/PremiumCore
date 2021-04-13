@@ -62,7 +62,6 @@ public class PremiumCore extends JavaPlugin {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         this.prettierGson = gsonBuilder.setPrettyPrinting().create();
         this.gson = gsonBuilder.create();
-        this.settings.createConfigurationFile(this, "/", "/", "database");
         registerListener(controller);
     }
 
