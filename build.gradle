@@ -33,6 +33,7 @@ dependencies {
     compile 'org.hibernate:hibernate-hikaricp:5.4.30.Final'
     compile 'org.hibernate:hibernate-ehcache:5.4.30.Final'
     compile 'org.hibernate:hibernate-core:5.4.30.Final'
+    compile 'org.slf4j:slf4j-log4j12:1.7.30'
     compileOnly 'com.mojang:authlib:1.5.21'
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     compileClasspath("org.projectlombok:lombok:1.18.18")
@@ -50,6 +51,7 @@ shadowJar {
     exclude '*.md'
     relocate("javax.persistence", "javax.relocated.persistence")
     relocate("com.google", "com.relocated.google")
+    relocate("org.slf4j", "org.relocated.slf4j")
     archiveFileName = "${rootProject.name}.jar"
     destinationDirectory = file "../target"
 }
