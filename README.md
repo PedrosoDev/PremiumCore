@@ -12,6 +12,7 @@ Core para facilitar criação de plugins para servidores de Minecraft.
 - [JPA 2.2](https://github.com/hibernate/hibernate-jpa-api)
 - [Google Guice](https://github.com/google/guice)
 - [Google Guava](https://github.com/google/guava)
+- [Annotation Command Framework](https://github.com/aikar/commands)
 - ReflectionUtils by DarkBlade12
 - BookViewer by DarkBlade12
 - InventoryMaker
@@ -43,7 +44,7 @@ Para utilizar, primeiro você precisa indexar a core em seu projeto.
 <dependency>
 	<groupId>com.github.LeonardoCod3r</groupId>
 	<artifactId>PremiumCore</artifactId>
-	<version>1.2.1</version>
+	<version>1.3.0</version>
 	<scope>provided</scope>
 </dependency>
 ```
@@ -65,7 +66,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.LeonardoCod3r:PremiumCore:1.2.1'
+	implementation 'com.github.LeonardoCod3r:PremiumCore:1.3.0'
 }
 ```
 
