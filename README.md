@@ -12,6 +12,7 @@ Core para facilitar criação de plugins para servidores de Minecraft.
 - [JPA 2.2](https://github.com/hibernate/hibernate-jpa-api)
 - [Google Guice](https://github.com/google/guice)
 - [Google Guava](https://github.com/google/guava)
+- [Annotation Command Framework](https://github.com/aikar/commands)
 - ReflectionUtils by DarkBlade12
 - BookViewer by DarkBlade12
 - InventoryMaker
