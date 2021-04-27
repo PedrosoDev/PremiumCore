@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.LeonardoCod3r</groupId>
     <artifactId>PremiumCore</artifactId>
-    <version>1.3.0</version>
+    <version>1.0.0</version>
     <name>LeonardoCod3r/PremiumCore</name>
     <description>Core para integrar Hibernate-Hikaricp-Ehcache em servidores de Minecraft.</description>
     <url>https://github.com/LeonardoCod3r/PremiumCore</url>

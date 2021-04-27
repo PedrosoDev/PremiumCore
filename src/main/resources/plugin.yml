@@ -1,5 +1,4 @@
 name: PremiumCore
 main: com.leonardo.premiumcore.PremiumCore
 author: <Leonardo/>
-version: 1.0
-softdepend: [ dynmap, NBTAPI, ProtocolLib ]
+version: 1.0.0
