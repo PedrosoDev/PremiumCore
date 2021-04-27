@@ -1,18 +1,6 @@
-# Ignore Gradle project-specific cache directory
-.gradle
-
-# Ignore Gradle build output directory
-build
-
-# IntelliJ project files
+target
 .idea
 *.iml
 out
 gen
 
-# VsCode project files
-.vscode
-.settings
-.classpath
-.project
-bin
