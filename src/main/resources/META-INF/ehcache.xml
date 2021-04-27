@@ -7,12 +7,12 @@
                   timeToIdleSeconds="30"
                   timeToLiveSeconds="120"
                   overflowToDisk="false"/>
-    <cache  name="centralworks.premiumeconomy.models.BankAccount"
+    <cache  name="com.leonardo.premiumsignshop.models.SignShopAdmin"
             maxElementsInMemory="4"
             timeToIdleSeconds="300"
             timeToLiveSeconds="600"
             />
-    <cache  name="com.leonardo.premiumcore.example.Friend"
+    <cache  name="com.leonardo.premiumsignshop.models.SignShopPlayer"
             maxElementsInMemory="4"
             timeToIdleSeconds="300"
             timeToLiveSeconds="600"

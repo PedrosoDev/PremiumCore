@@ -41,7 +41,7 @@ public abstract class JpaRepository<O, T extends Serializable> implements Reposi
         final Session s = sessionFactory.openSession();
         s.getTransaction().begin();
         try {
-            final O obj = s.load(target, id);
+            final O obj = s.get(target, id);
             s.getTransaction().commit();;
             opt = Optional.of(obj);
         } catch (Exception e) {

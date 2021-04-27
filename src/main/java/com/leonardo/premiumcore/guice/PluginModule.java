@@ -64,6 +64,8 @@ public class PluginModule extends AbstractModule {
         settings.put(Environment.PASS, fun.apply("password"));
         settings.put(Environment.DIALECT, fun.apply("dialect"));
         settings.put(Environment.SHOW_SQL, fun.apply("showSql"));
+        settings.put(Environment.FORMAT_SQL, fun.apply("formatSql"));
+        settings.put(Environment.USE_SQL_COMMENTS, fun.apply("useSqlComments"));
         settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, fun.apply("currentSessionContextClass"));
         settings.put(Environment.HBM2DDL_AUTO, fun.apply("hbm2ddlAuto"));
         settings.put(Environment.CONNECTION_PROVIDER, fun.apply("connectionProvider"));

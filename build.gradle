@@ -10,17 +10,23 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+    options.fork = true
+    options.forkOptions.executable = 'javac'
+    options.encoding = 'UTF-8'
+}
 
 repositories {
     mavenLocal()
     google()
     jcenter()
-    maven { url 'https://libraries.minecraft.net/' }
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://libraries.minecraft.net/' }
+    maven { url = 'https://hub.spigotmc.org/nexus/content/groups/public/' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://repo.aikar.co/content/groups/aikar/' }
 }
 
 dependencies {
@@ -34,24 +40,26 @@ dependencies {
     compile 'org.hibernate:hibernate-ehcache:5.4.30.Final'
     compile 'org.hibernate:hibernate-core:5.4.30.Final'
     compile 'org.slf4j:slf4j-log4j12:1.7.30'
+    compile 'co.aikar:acf-bukkit:0.5.0-SNAPSHOT'
     compileOnly 'com.mojang:authlib:1.5.21'
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-    compileClasspath("org.projectlombok:lombok:1.18.18")
-    annotationProcessor("org.projectlombok:lombok:1.18.18")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.18")
+    compileClasspath 'org.projectlombok:lombok:1.18.18'
+    annotationProcessor 'org.projectlombok:lombok:1.18.18'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.18'
     testImplementation 'junit:junit:4.12'
 }
 
 group = 'com.leonardo.premiumcore'
-version = '1.2.3'
+version = '1.3.0'
 description = 'PremiumCore'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 shadowJar {
     exclude '*.md'
-    relocate("javax.persistence", "javax.relocated.persistence")
-    relocate("com.google", "com.relocated.google")
-    relocate("org.slf4j", "org.relocated.slf4j")
+    relocate 'javax.persistence', 'javax.relocated.persistence'
+    relocate 'com.google', 'com.relocated.google'
+    relocate 'org.slf4j', 'org.relocated.slf4j'
+    relocate 'co.aikar.commands', 'com.leonardo.premiumcore.cmdframework'
+    relocate 'co.aikar.locales', 'com.leonardo.premiumcore.locales'
     archiveFileName = "${rootProject.name}.jar"
     destinationDirectory = file "../target"
 }
