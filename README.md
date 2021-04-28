@@ -44,7 +44,7 @@ Para utilizar, primeiro você precisa indexar a core em seu projeto.
 <dependency>
 	<groupId>com.github.LeonardoCod3r</groupId>
 	<artifactId>PremiumCore</artifactId>
-	<version>1.3.0</version>
+	<version>1.0.0</version>
 	<scope>provided</scope>
 </dependency>
 ```
@@ -66,7 +66,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.LeonardoCod3r:PremiumCore:1.3.0'
+	implementation 'com.github.LeonardoCod3r:PremiumCore:1.0.0'
 }
 ```
 
