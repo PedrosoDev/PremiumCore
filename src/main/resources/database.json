@@ -17,7 +17,7 @@
   "connectionProvider": "org.hibernate.hikaricp.internal.HikariCPConnectionProvider",
   "secondLevelCache": "true",
   "cacheStructureEntries": "true",
-  "cacheFactoryClass": "org.hibernate.cache.ehcache.internal.EhcacheRegionFactory",
-  "cacheProviderClass": "net.sf.ehcache.hibernate.EhCacheProvider",
+  "cacheFactoryClass": "jcache",
+  "cacheProviderClass": "org.ehcache.jsr107.EhcacheCachingProvider",
   "cacheQueryCache": "true"
 }
