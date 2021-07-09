@@ -4,14 +4,18 @@ import com.google.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public abstract class JpaRepository<O, T extends Serializable> implements Repository<O, T> {
 
@@ -38,18 +42,20 @@ public abstract class JpaRepository<O, T extends Serializable> implements Reposi
     @Override
     public Optional<O> read(T id) {
         Optional<O> opt;
-        final Session s = sessionFactory.openSession();
-        s.getTransaction().begin();
+        final Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
         try {
-            final O obj = s.get(target, id);
-            s.getTransaction().commit();;
+            final O obj = session.find(target, id);
+            session.getTransaction().commit();
+            ;
             opt = Optional.of(obj);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao requisitar no banco de dados a entidade " + getTarget().getSimpleName() + " de id " + id);
-            s.getTransaction().rollback();
+            LogManager.getRootLogger().info("Ocorreu um erro ao requisitar no banco de dados a entidade " +
+                                            getTarget().getSimpleName() + " de id " + id);
+            session.getTransaction().rollback();
             opt = Optional.empty();
         } finally {
-            s.close();
+            session.close();
         }
         return opt;
     }
@@ -58,7 +64,7 @@ public abstract class JpaRepository<O, T extends Serializable> implements Reposi
     public void update(O obj) {
         final Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        session.update(obj);
+        session.merge(obj);
         session.getTransaction().commit();
         session.close();
     }
@@ -73,39 +79,42 @@ public abstract class JpaRepository<O, T extends Serializable> implements Reposi
     }
 
     @Override
-    public Optional<O> findAndDelete(T id) {
+    public void deleteById(T id) {
         final Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        final Optional<O> o = Optional.of(session.load(target, id));
-        o.ifPresent(session::delete);
+        final CriteriaBuilder builder = session.getCriteriaBuilder();
+        final CriteriaDelete<O> query = builder.createCriteriaDelete(getTarget());
+        final Root<O> root = query.from(getTarget());
+        final EntityType<O> entity = session.getMetamodel().entity(getTarget());
+        query.where(builder.equal(root.get(entity.getId(getTarget()).getName()), id));
+        session.createQuery(query).executeUpdate();
         session.getTransaction().commit();
         session.close();
-        return o;
     }
 
     @Override
     public List<O> findAll() {
-        return sessionFactory.openSession().createQuery("FROM " + target.getName(), target).getResultList();
-    }
-
-    @Override
-    public List<O> findAll(Predicate<O> predicate) {
-        return findAll().stream().filter(predicate).collect(Collectors.toList());
+        final Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        final List<O> list = session.createQuery("FROM " + target.getName(), target).getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return list;
     }
 
     @Override
     public boolean exists(T id) {
         final Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        boolean result = false;
-        try {
-            session.load(target, id);
-            result = true;
-        } catch (Exception ignored) {
-        }
+        final CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
+        final CriteriaQuery<O> query = builder.createQuery(getTarget());
+        final Root<O> root = query.from(getTarget());
+        final EntityType<O> entity = session.getMetamodel().entity(getTarget());
+        query.select(root).where(builder.equal(root.get(entity.getId(getTarget()).getName()), id));
+        final boolean empty = session.createQuery(query).getResultList().isEmpty();
         session.getTransaction().commit();
         session.close();
-        return result;
+        return empty;
     }
 
 }

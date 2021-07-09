@@ -14,11 +14,9 @@ public interface Repository<O, T> {
 
     void delete(O obj);
 
-    Optional<O> findAndDelete(T id);
+    void deleteById(T id);
 
     List<O> findAll();
-
-    List<O> findAll(Predicate<O> predicate);
 
     boolean exists(T id);
 

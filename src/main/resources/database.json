@@ -1,7 +1,7 @@
 {
   "url": "jdbc:mysql://localhost:3306/main?useSSL=false&useTimezone=true&serverTimezone=UTC",
   "user": "root",
-  "password": "",
+  "password": "manager",
   "minimumIdle": "5",
   "maximumPoolSize": "50",
   "idleTimeout": "30000",

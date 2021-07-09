@@ -8,12 +8,12 @@
                   timeToLiveSeconds="120"
                   overflowToDisk="false"/>
     <cache  name="com.leonardo.premiumsignshop.models.SignShopAdmin"
-            maxElementsInMemory="4"
+            maxElementsInMemory="100"
             timeToIdleSeconds="300"
             timeToLiveSeconds="600"
             />
     <cache  name="com.leonardo.premiumsignshop.models.SignShopPlayer"
-            maxElementsInMemory="4"
+            maxElementsInMemory="100"
             timeToIdleSeconds="300"
             timeToLiveSeconds="600"
     />
