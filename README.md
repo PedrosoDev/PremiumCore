@@ -8,6 +8,7 @@ Core para facilitar criação de plugins para servidores de Minecraft.
 
 - [Hibernate 5.5.3-final](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-core)
 - [Hibernate-HikariCP](https://github.com/hibernate/hibernate-orm/tree/master/hibernate-hikaricp)
+- [XSeries](https://github.com/CryptoMorin/XSeries)
 - [Ehcache 3.9.4](https://github.com/ehcache/ehcache3)
 - [JPA 2.2](https://github.com/hibernate/hibernate-jpa-api)
 - [Google Guice](https://github.com/google/guice)
@@ -17,17 +18,18 @@ Core para facilitar criação de plugins para servidores de Minecraft.
 - BookViewer by DarkBlade12
 - InventoryMaker
 - ItemBuilder (Item.class)
-- Settings (Classe para acesso à arquivos .yml)
+- YamlSettings (Classe para acesso à arquivos .yml)
+- Settings (Classe para acesso à arquivos .json)  
 - [EntityName](https://github.com/eduardo-mior/BukkitEnums-Translateds/blob/master/Enums/EntityName.java) (Tradutor de nomes da entidades para PT-BR)
 - [ItemName](https://github.com/eduardo-mior/BukkitEnums-Translateds/blob/master/Enums/ItemName.java) (Tradutor de nomes da itens para PT-BR)
 
 ## Instalação
 
-Para utilizar, primeiro você precisa indexar a core em seu projeto.
+Para utilizar, primeiro vossa senhoria precisa indexar a core no seu projeto.
 
 ### Maven
 
-1. Adicione em seu arquivo pom.xml o repositório JitPack:
+1. Adicione no seu arquivo pom.xml o repositório JitPack:
 
 ```xml
 <repositories>
@@ -44,14 +46,14 @@ Para utilizar, primeiro você precisa indexar a core em seu projeto.
 <dependency>
 	<groupId>com.github.LeonardoCod3r</groupId>
 	<artifactId>PremiumCore</artifactId>
-	<version>1.0.0</version>
+	<version>0.1-beta</version>
 	<scope>provided</scope>
 </dependency>
 ```
 
 ### Gradle
 
-1. Adicione em seu arquivo build.gradle o repositório JitPack:
+1. Adicione no seu arquivo build.gradle o repositório JitPack:
 
 ```gradle 
 allprojects {
@@ -66,7 +68,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.LeonardoCod3r:PremiumCore:1.0.0'
+	implementation 'com.github.LeonardoCod3r:PremiumCore:0.1-beta'
 }
 ```
 
@@ -92,8 +94,12 @@ public class Plugin extends JavaPlugin {
 
 Para mais informações de como utilizar outros recursos, visite a nossa [Wiki](https://github.com/LeonardoCod3r/PremiumCore/wiki).
 
+## Importante
+
+Jamais encapsule o plugin no seus projetos, a não ser que invoque o método super na classe de carregamento.
+
 ## Contribuindo
-Pull requests são bem-vindas. Para mudanças importantes, abra um problema primeiro para discutir o que você gostaria de mudar.
+Pull requests são bem-vindas. Para mudanças importantes, abra um problema primeiro para discutir o que gostaria de mudar.
 
 
 ## Licença

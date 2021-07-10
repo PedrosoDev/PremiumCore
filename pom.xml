@@ -123,6 +123,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>8.2.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.18</version>
@@ -203,6 +209,10 @@
                         <relocation>
                             <pattern>co.aikar.locales</pattern>
                             <shadedPattern>premiumcore.locales</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>premiumcore.xseries</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
